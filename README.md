@@ -15,13 +15,13 @@ Temas:
 # NomedoProjeto
 
 **Número da Lista**: X<br>
-**Conteúdo da Disciplina**: XXXXXXXXXX<br>
+**Conteúdo da Disciplina**: Final<br>
 
 ## Alunos
 |Matrícula | Aluno |
 | -- | -- |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
+| 17/0142329  | Francisco Emanoel Ferreira da Penha |
+
 
 ## Sobre 
 Descreva os objetivos do seu projeto e como ele funciona. 
