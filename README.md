@@ -1,5 +1,3 @@
-**!! Atenção: Renomeie o seu repositório para (Tema)_(NomeDoProjeto). !!** 
-
 Temas:
  - Grafos1
  - Grafos2
@@ -8,13 +6,10 @@ Temas:
  - Greed
  - Final 
  
- **!! *Não coloque os nomes dos alunos no título do repositório*. Exemplo de título correto: Grafos2_Labirinto-do-Minotauro !!**
+
  
- (Apague essa seção)
+# Flappy-Baby-Yoda
 
-# NomedoProjeto
-
-**Número da Lista**: X<br>
 **Conteúdo da Disciplina**: Final<br>
 
 ## Alunos
@@ -61,6 +56,8 @@ Essa última entrega foi baseada em um game bem famoso(que gosto de jogar quando
 **Caso você não tenha o make instalado pode usar os seguintes comandos:**
  
 ``python3 ./src/baby-yoda-IA.py``
+
+Depois que você execultar esse comando a IA vai começar a fazer os testes de seleção, até achar a melhor geração.
 
 ## Outros 
 Quaisquer outras informações sobre seu projeto podem ser descritas abaixo.
