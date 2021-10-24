@@ -35,10 +35,32 @@ Essa última entrega foi baseada em um game bem famoso(que gosto de jogar quando
 
 ## Instalação 
 **Linguagem**: Python3<br>
-Descreva os pré-requisitos para rodar o seu projeto e os comandos necessários.
+
+### Pré-requisitos
+- SO: Linux (Ubuntu, Debian,...)
+- [python3](https://linuxize.com/post/how-to-install-pip-on-ubuntu-18.04/)
+    - pygame
+    
+            sudo pip3 install pygame
+    
+    - neat
+
+            sudo pip3 install neat-python
+
+
+- [Makefile](https://zoomadmin.com/HowToInstall/UbuntuPackage/make)
+    
+
 
 ## Uso 
-Explique como usar seu projeto caso haja algum passo a passo após o comando de execução.
+
+**Para executar o software:**
+ 
+``make start``
+ 
+**Caso você não tenha o make instalado pode usar os seguintes comandos:**
+ 
+``python3 ./src/baby-yoda-IA.py``
 
 ## Outros 
 Quaisquer outras informações sobre seu projeto podem ser descritas abaixo.
