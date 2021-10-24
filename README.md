@@ -27,11 +27,14 @@ Temas:
 Descreva os objetivos do seu projeto e como ele funciona. 
 
 ## Screenshots
-Adicione 3 ou mais screenshots do projeto em funcionamento.
+
+![](https://raw.githubusercontent.com/projeto-de-algoritmos/Final-Countdown/master/imgs/image1.png)
+
+
+![](https://raw.githubusercontent.com/projeto-de-algoritmos/Final-Countdown/master/imgs/image2.png)
 
 ## Instalação 
-**Linguagem**: xxxxxx<br>
-**Framework**: (caso exista)<br>
+**Linguagem**: Python3<br>
 Descreva os pré-requisitos para rodar o seu projeto e os comandos necessários.
 
 ## Uso 
