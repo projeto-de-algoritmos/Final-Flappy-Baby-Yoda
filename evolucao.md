@@ -37,4 +37,19 @@
 
 &emsp;&emsp;É bem provável que você esteja se perguntando como podemos aplicar isso? parece bem complicado não?, e sim é complicado mesmo hahaha, mas para isso que existe python e suas bibliotecas, a principal biblioteca do python que faz esse algoritmo é a neat-python, mas o'que é esse neat? O conceito de NEAT(NeuroEvolution of Augmenting Topologies) já é bem conhecido pela literatura, foi desenvolvido por Ken Stanley em 2002 na  Universidade do Texas em Austin é basicamente é um algoritmo genético para gerar redes neurais artificiais em evolução.
 
-## Codificação
+## Codificação 
+
+&emsp;&emsp;Como foi dito anteriormente a base para essa solução e a biologia, logo herdamos alguns conceitos para essa solução, assim como na biologia temos o genótipo e fenótipo no NEAT também existe. Na codificação fazemos a representação dos indivíduos geneticamente em algoritmos, assim podemos reutilizar alguns conceitos do processo evolutivo como: seleção, mutação e cruzamento.
+
+&emsp;&emsp;No caso o NEAT usa codificação direta. Uma codificação direta consiste em especificar explicitamente todos os detalhes sobre o indivíduo, ao respeitar ele como uma rede neural podemos perceber que cada gene está diretamente ligado ao um nó, assim ligando vários nós por conexões ponderadas, no final sempre tendo uma conexão direta e indireta entre o genótipo e fenótipo.
+
+<center>
+
+![](https://raw.githubusercontent.com/projeto-de-algoritmos/Final-Flappy-Baby-Yoda/gh-pages/images/0_Kze4g6cLA3maofxq.png)
+
+</center>
+<center>
+
+[Exemplo de nó e gene](https://raw.githubusercontent.com/projeto-de-algoritmos/Final-Flappy-Baby-Yoda/gh-pages/images/0_Kze4g6cLA3maofxq.png)
+
+</center>
