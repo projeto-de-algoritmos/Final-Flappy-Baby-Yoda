@@ -27,3 +27,14 @@
 [Rede Neurais IA](https://raw.githubusercontent.com/projeto-de-algoritmos/Final-Flappy-Baby-Yoda/master/imgs/rede-neural.png)
 
 </center>
+
+# Neuroevolução
+
+&emsp;&emsp;Depois de alguns meses de pesquisa acabei achando um termo bem interessante, neuroevolução, daí para frente foi uma jornada bem desafiadora, porque usava muitos conceitos de biologia que não conhecia muito bem (não me dava muito bem com biologia no ensino médio). O modo de aprendizado natural de uma rede neural é uma estrutura fixa, ok até é tranquilo, agora vamos dar um dose dopaminérgica nos entusiastas de IA, o que você acha de evoluir essa rede neural usando algoritmos de evolução genética? Parece bem doido né haha,  logo abaixo iremos falar sobre isso, é eu sei isso é incrível!!!
+
+
+&emsp;&emsp;Depois de alguns meses de pesquisa acabei achando um termo bem interessante, neuroevolução, daí para frente foi uma jornada bem desafiadora, porque usava muitos conceitos de biologia que não conhecia muito bem (não me dava muito bem com biologia no ensino médio). O modo de aprendizado natural de uma rede neural é uma estrutura fixa, ok até é tranquilo, agora vamos dar um dose dopaminérgica nos entusiastas de IA, o que você acha de evoluir essa rede neural usando algoritmos de evolução genética? Parece bem doido né haha,  logo abaixo iremos falar sobre isso, é eu sei isso é incrível!!!
+
+&emsp;&emsp;É bem provável que você esteja se perguntando como podemos aplicar isso? parece bem complicado não?, e sim é complicado mesmo hahaha, mas para isso que existe python e suas bibliotecas, a principal biblioteca do python que faz esse algoritmo é a neat-python, mas o'que é esse neat? O conceito de NEAT(NeuroEvolution of Augmenting Topologies) já é bem conhecido pela literatura, foi desenvolvido por Ken Stanley em 2002 na  Universidade do Texas em Austin é basicamente é um algoritmo genético para gerar redes neurais artificiais em evolução.
+
+## Codificação
