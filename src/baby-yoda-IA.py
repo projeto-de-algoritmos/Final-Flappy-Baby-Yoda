@@ -65,130 +65,6 @@ def desenhar_tela(tela, baby_yodas, metoros, base, pontos):
     pygame.display.update()
 
 
-def main(genomas, config): # fitness function
-
-    pygame.mixer.init()
-    pygame.mixer.music.load("./music/tema.mp3")
-    pygame.mixer.music.play()
-
-
-    global geracao
-    geracao += 1
-
-    if IA:
-        redes_neural = []
-        baby_yodas = []
-        lista_genomas = []
-        
-        for num, genoma in genomas:
-            rede = neat.nn.FeedForwardNetwork.create(genoma, config)
-            redes_neural.append(rede)
-            genoma.fitness = 0
-            lista_genomas.append(genoma)
-            baby_yodas.append(Baby_yoda(230, 350))
-            
-    else:
-        baby_yodas = [Baby_yoda(230, 350)]
-    base = Base(730)
-    metoros = [Metoro(700)]
-    tela = pygame.display.set_mode((TELA_LARGURA, TELA_ALTURA))
-    pontos = 0
-    relogio = pygame.time.Clock()
-
-    rodando = True
-    while rodando:
-        relogio.tick(30)
-
-        # interação com o usuário
-        for evento in pygame.event.get():
-            if evento.type == pygame.QUIT:
-                rodando = False
-                pygame.quit()
-                quit()
-            if not IA:
-                if evento.type == pygame.KEYDOWN:
-                    if evento.key == pygame.K_SPACE:
-                        for baby_yoda in baby_yodas:
-                            baby_yoda.pular()
-
-        indice_metoro = 0
-        if len(baby_yodas) > 0:
-            if len(metoros) > 1 and baby_yodas[0].x > (metoros[0].x + metoros[0].METORO_TOPO.get_width()):
-                indice_metoro = 1
-        else:
-            rodando = False
-            break
-
-        # mover as coisas
-        for i, baby_yoda in enumerate(baby_yodas):
-            baby_yoda.mover()
-            # aumentar um pouquinho a fitness do baby_yoda
-            lista_genomas[i].fitness += 0.1
-            output = redes_neural[i].activate((baby_yoda.y,
-                                        abs(baby_yoda.y - metoros[indice_metoro].altura),
-                                        abs(baby_yoda.y - metoros[indice_metoro].pos_base)))
-            # -1 e 1 -> se o output for > 0.5 então o baby_yoda pula
-            if output[0] > 0.5:
-                baby_yoda.pular()
-        base.mover()
-
-        adicionar_metoro = False
-        remover_metoros = []
-        for metoro in metoros:
-            for i, baby_yoda in enumerate(baby_yodas):
-                if metoro.colidir(baby_yoda):
-                    baby_yodas.pop(i)
-                    if IA:
-                        lista_genomas[i].fitness -= 1
-                        lista_genomas.pop(i)
-                        redes_neural.pop(i)
-                if not metoro.passou and baby_yoda.x > metoro.x:
-                    metoro.passou = True
-                    adicionar_metoro = True
-            metoro.mover()
-            if metoro.x + metoro.METORO_TOPO.get_width() < 0:
-                remover_metoros.append(metoro)
-
-        if adicionar_metoro:
-            pontos += 1
-            metoros.append(Metoro(600))
-            for genoma in lista_genomas:
-                genoma.fitness += 5
-        for metoro in remover_metoros:
-            metoros.remove(metoro)
-
-        for i, baby_yoda in enumerate(baby_yodas):
-            if (baby_yoda.y + baby_yoda.imagem.get_height()) > base.y or baby_yoda.y < 0:
-                baby_yodas.pop(i)
-                if IA:
-                    lista_genomas.pop(i)
-                    redes_neural.pop(i)
-
-        desenhar_tela(tela, baby_yodas, metoros, base, pontos)
-
-
-
-
-def rodar(caminho_config):
-    config = neat.config.Config(neat.DefaultGenome,
-                                neat.DefaultReproduction,
-                                neat.DefaultSpeciesSet,
-                                neat.DefaultStagnation,
-                                caminho_config)
-
-    populacao = neat.Population(config)
-    populacao.add_reporter(neat.StdOutReporter(True))
-    populacao.add_reporter(neat.StatisticsReporter())
-
-    if IA:
-        populacao.run(main)
-    else:
-        main(None, None)
-
-
-
-
-
 class Metoro:
     DISTANCIA = 190
     VELOCIDADE = 5
@@ -231,11 +107,8 @@ class Metoro:
         else:
             return False
 
-
-
 class Baby_yoda:
     IMGS = IMAGENS_BABY_YODA
-    # animações da rotação
     ROTACAO_MAXIMA = 25
     VELOCIDADE_ROTACAO = 20
     TEMPO_ANIMACAO = 5
@@ -256,11 +129,10 @@ class Baby_yoda:
         this.altura = this.y
 
     def mover(this):
-        # calcular o deslocamento
         this.tempo += 1
         deslocamento = 1.5 * (this.tempo**2) + this.velocidade * this.tempo
 
-        # restringir o deslocamento
+  
         if deslocamento > 16:
             deslocamento = 16
         elif deslocamento < 0:
@@ -268,7 +140,7 @@ class Baby_yoda:
 
         this.y += deslocamento
 
-        # o angulo do baby_yoda
+
         if deslocamento < 0 or this.y < (this.altura + 50):
             if this.angulo < this.ROTACAO_MAXIMA:
                 this.angulo = this.ROTACAO_MAXIMA
@@ -277,7 +149,6 @@ class Baby_yoda:
                 this.angulo -= this.VELOCIDADE_ROTACAO
 
     def desenhar(this, tela):
-        # definir qual imagem do baby_yoda vai usar
         this.contagem_imagem += 1
 
         if this.contagem_imagem < this.TEMPO_ANIMACAO:
@@ -292,8 +163,6 @@ class Baby_yoda:
             this.imagem = this.IMGS[0]
             this.contagem_imagem = 0
 
-
-        # desenhar a imagem
         imagem_rotacionada = pygame.transform.rotate(this.imagem, this.angulo)
         pos_centro_imagem = this.imagem.get_rect(topleft=(this.x, this.y)).center
         retangulo = imagem_rotacionada.get_rect(center=pos_centro_imagem)
@@ -303,7 +172,108 @@ class Baby_yoda:
         return pygame.mask.from_surface(this.imagem)
 
 
+def main(genomas, config): # fitness function
 
+    pygame.mixer.init()
+    pygame.mixer.music.load("./music/tema.mp3")
+    pygame.mixer.music.play()
+
+
+    global geracao
+    geracao += 1
+
+    if IA:
+        redes_neural = []
+        baby_yodas = []
+        lista_genomas = []
+        
+        for num, genoma in genomas:
+            rede = neat.nn.FeedForwardNetwork.create(genoma, config)
+            redes_neural.append(rede)
+            genoma.fitness = 0
+            lista_genomas.append(genoma)
+            baby_yodas.append(Baby_yoda(230, 350))
+            
+    else:
+        baby_yodas = [Baby_yoda(230, 350)]
+    base = Base(730)
+    metoros = [Metoro(700)]
+    tela = pygame.display.set_mode((TELA_LARGURA, TELA_ALTURA))
+    pontos = 0
+    relogio = pygame.time.Clock()
+
+    rodando = 1
+    while rodando:
+        relogio.tick(30)
+
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                rodando = False
+                pygame.quit()
+                quit()
+            
+        indice_metoro = 0
+        if len(baby_yodas) > 0:
+            if len(metoros) > 1 and baby_yodas[0].x > (metoros[0].x + metoros[0].METORO_TOPO.get_width()):
+                indice_metoro = 1
+        else:
+            rodando = False
+            break
+
+
+        for i, baby_yoda in enumerate(baby_yodas):
+            baby_yoda.mover()
+            lista_genomas[i].fitness += 0.1
+            output = redes_neural[i].activate((baby_yoda.y,
+                                        abs(baby_yoda.y - metoros[indice_metoro].altura),
+                                        abs(baby_yoda.y - metoros[indice_metoro].pos_base)))
+            if output[0] > 0.5:
+                baby_yoda.pular()
+        base.mover()
+
+        adicionar_metoro = False
+        remover_metoros = []
+        for metoro in metoros:
+            for i, baby_yoda in enumerate(baby_yodas):
+                if metoro.colidir(baby_yoda):
+                    baby_yodas.pop(i)
+                    if IA:
+                        lista_genomas[i].fitness -= 1
+                        lista_genomas.pop(i)
+                        redes_neural.pop(i)
+                if not metoro.passou and baby_yoda.x > metoro.x:
+                    metoro.passou = True
+                    adicionar_metoro = True
+            metoro.mover()
+            if metoro.x + metoro.METORO_TOPO.get_width() < 0:
+                remover_metoros.append(metoro)
+
+        if adicionar_metoro:
+            pontos += 1
+            metoros.append(Metoro(600))
+            for genoma in lista_genomas:
+                genoma.fitness += 5
+        for metoro in remover_metoros:
+            metoros.remove(metoro)
+
+        for i, baby_yoda in enumerate(baby_yodas):
+            if (baby_yoda.y + baby_yoda.imagem.get_height()) > base.y or baby_yoda.y < 0:
+                baby_yodas.pop(i)
+                if IA:
+                    lista_genomas.pop(i)
+                    redes_neural.pop(i)
+
+        desenhar_tela(tela, baby_yodas, metoros, base, pontos)
+
+def rodar(caminho_config):
+    config = neat.config.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet,  neat.DefaultStagnation,  caminho_config) 
+   
+    populacao = neat.Population(config)
+
+    populacao.add_reporter(neat.StdOutReporter(True)) #adicionar feedbacks
+
+
+    populacao.run(main, 15)
 
 
 if __name__ == '__main__':
